@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Platform</title>
+    <!-- Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #2c3e50 0%, #34495e 100%);
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: all 0.4s ease;
+        }
+
+        nav a:hover, nav a:focus {
+            color: #00d4ff;
+            outline: none;
+        }
+
+        /* Profile Section */
+        .profile {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile:hover {
+            transform: translateY(-10px);
+        }
+
+        .profile h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        form input, form textarea {
+            margin-bottom: 20px;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f5f7fa;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+            transform: scale(1.02);
+        }
+
+        form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        form button {
+            background: linear-gradient(45deg, #3498db, #00d4ff);
+            color: #fff;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        form button:hover, form button:focus {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.5);
+            outline: none;
+        }
+
+        /* Form Message */
+        #formMessage.success {
+            background: linear-gradient(to right, #d4edda, #b7e4c7);
+            color: #155724;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #formMessage.error {
+            background: linear-gradient(to right, #f8d7da, #f4a6ab);
+            color: #721c24;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Freelancers Section */
+        .freelancers-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .freelancers-section h2 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .freelancers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* Hire Talent Button */
+        #hireTalentBtn.btn {
+            display: block;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #e67e22, #f1c40f);
+            color: #fff;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        #hireTalentBtn.btn:hover, #hireTalentBtn.btn:focus {
+            background: linear-gradient(45deg, #d35400, #e67e22);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(211, 84, 0, 0.5);
+            outline: none;
+        }
+
+        /* Freelancer Card */
+        .freelancer-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .freelancer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.6rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .rate {
+            background: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .card-body .skills {
+            margin: 15px 0;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #00d4ff);
+            color: #fff;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.1);
+        }
+
+        .card-body .bio {
+            color: #7f8c8d;
+            font-size: 1rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .contact-details {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-details.active {
+            display: block;
+        }
+
+        .contact-email {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        .contact-email a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-email a:hover, .contact-email a:focus {
+            color: #00d4ff;
+            outline: none;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Removed textarea and button styling since they are removed */
+
+        /* Loading, Empty, and Error States */
+        .loading-state, .empty-state, .error-state {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .loading-state i, .empty-state i, .error-state i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #3498db;
+        }
+
+        .loading-state span, .empty-state p, .error-state p {
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+
+        .error-state i {
+            color: #e74c3c;
+        }
+
+        .retry-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .retry-btn:hover, .retry-btn:focus {
+            background: linear-gradient(45deg, #c0392b, #e74c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            outline: none;
+        }
+
+        .retry-btn i {
+            margin-right: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #fff;
+            padding: 30px 0;
+            margin-top: 50px;
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: end;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .copyright {
+            flex: 1 1 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .developer-info h3 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .developer-list li {
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .developer-list li:hover {
+            opacity: 1;
+            color: #00d4ff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .profile, .freelancers-section {
+                padding: 20px;
+                margin: 30px 15px;
+            }
+
+            .freelancers-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .developer-info {
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Freelancer Platform</h1>
+        <nav>
+            <a href="integratedweb.html">Hide freelancer data</a>
+        </nav>
+    </header>
+
+    <div class="profile">
+        <h2>Create Your Freelancer Profile</h2>
+        <form id="freelancerForm">
+            <input type="text" name="name" placeholder="Full Name" required aria-required="true" aria-label="Full Name">
+            <input type="email" name="email" placeholder="Email Address" required aria-required="true" aria-label="Email Address">
+            <input type="text" name="skills" placeholder="Skills (comma-separated)" required aria-required="true" aria-label="Skills">
+            <textarea name="bio" placeholder="Tell us about yourself" required aria-required="true" aria-label="Bio"></textarea>
+            <input type="number" name="hourly_rate" placeholder="Hourly Rate ($)" min="1" required aria-required="true" aria-label="Hourly Rate">
+            <button type="submit">Save Profile</button>
+        </form>
+        <div id="formMessage" role="alert"></div>
+    </div>
+
+    <section class="freelancers-section">
+        <h2>Available Freelancers</h2>
+        <button id="hireTalentBtn" class="btn">Hire Talent</button>
+        <div id="freelancersContainer" class="freelancers-container"></div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="developer-info">
+                <h3>Developers</h3>
+                <ul class="developer-list">
+                    <li><a href="#">Divy Pant (Frontend)</a></li>
+                </ul>
+            </div>
+            <div class="copyright">© 2025 Freelancer Platform</div>
+        </footer>
+
+    <script>
+        function saveProfile(profile) {
+            let profiles = JSON.parse(localStorage.getItem('freelancerProfiles') || '[]');
+            profiles.push(profile);
+            localStorage.setItem('freelancerProfiles', JSON.stringify(profiles));
+            console.log('Profile Saved:', profile);
+        }
+
+        document.getElementById('freelancerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const messageDiv = document.getElementById('formMessage');
+
+            const formData = new FormData(form);
+            const profile = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                skills: formData.get('skills'),
+                bio: formData.get('bio'),
+                hourly_rate: parseFloat(formData.get('hourly_rate')) || 0,
+                portfolio_url: formData.get('portfolio_url') || '',
+                created_at: new Date().toISOString()
+            };
+
+            if (!profile.name || !profile.email || !profile.skills || !profile.bio || !profile.hourly_rate) {
+                messageDiv.textContent = 'All fields except Portfolio URL are required';
+                messageDiv.className = 'error';
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.email)) {
+                messageDiv.textContent = 'Invalid email format';
+                messageDiv.className = 'error';
+                return;
+            }
+
+            try {
+                saveProfile(profile);
+                messageDiv.textContent = 'Profile saved successfully!';
+                messageDiv.className = 'success';
+                form.reset();
+            } catch (error) {
+                messageDiv.textContent = 'Error saving profile: ' + error.message;
+                messageDiv.className = 'error';
+            }
+        });
+
+        document.getElementById("hireTalentBtn").addEventListener("click", async () => {
+            const container = document.getElementById("freelancersContainer");
+
+            try {
+                container.innerHTML = `
+                    <div class="loading-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Loading freelancers...</span>
+                    </div>
+                `;
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                const freelancers = JSON.parse(localStorage.getItem('freelancerProfiles') || '[]');
+                console.log('Fetched Freelancers:', freelancers);
+
+                container.innerHTML = '';
+
+                if (freelancers.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-user-slash"></i>
+                            <p>No freelancers available at the moment</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                freelancers.forEach(freelancer => {
+                    const card = document.createElement('div');
+                    card.className = 'freelancer-card';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <h3>${freelancer.name}</h3>
+                            <span class="rate">$${freelancer.hourly_rate}/hr</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skills">${freelancer.skills.split(',').map(skill => 
+                                `<span class="skill-tag">${skill.trim()}</span>`
+                            ).join('')}</p>
+                        </div>
+                        <div class="card-footer">
+                            ${freelancer.portfolio_url ? 
+                                `<button class="email-address" 
+                                         aria-label="Show ${freelancer.name}'s email address"
+                                         aria-expanded="false"
+                                         data-email="${freelancer.email}">
+                                    <i class="fas fa-envelope"></i> Email Address
+                                </button>` : 
+                                `<span class="no-portfolio" aria-label="No portfolio available for ${freelancer.name}">
+                                    No portfolio available
+                                </span>`
+                            }
+                            <div class="contact-details" aria-live="polite">
+                                <div class="contact-email">
+                                    <strong>Email:</strong> 
+                                    <a href="mailto:${freelancer.email}" aria-label="Send email to ${freelancer.name}">
+                                        ${freelancer.email}
+                                    </a>
+                                </div>
+                                <form class="contact-form" id="contactForm-${freelancer.email.replace('@', '-').replace('.', '-')}" data-email="${freelancer.email}">
+                                    <input type="email" name="hiring-email" placeholder="Your Email" aria-label="Your Email" required>
+                                    <!-- Removed textarea and button -->
+                                </form>
+                                <div id="contactMessage-${freelancer.email.replace('@', '-').replace('.', '-')}" role="alert"></div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+
+                    // Add event listener to toggle contact details
+                    const emailButton = card.querySelector('.email-address');
+                    const contactDetails = card.querySelector('.contact-details');
+                    if (emailButton) {
+                        emailButton.addEventListener('click', () => {
+                            const expanded = emailButton.getAttribute('aria-expanded') === 'true';
+                            emailButton.setAttribute('aria-expanded', !expanded);
+                            contactDetails.classList.toggle('active');
+                            if (!expanded) {
+                                contactDetails.setAttribute('aria-hidden', 'false');
+                            } else {
+                                contactDetails.setAttribute('aria-hidden', 'true');
+                            }
+                        });
+                    }
+
+                    // Remove the form submission event listener since message and button are removed
+                });
+
+            } catch (error) {
+                console.error("Error loading freelancers:", error);
+                container.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Failed to load freelancers</p>
+                        <button class="retry-btn" onclick="window.location.reload()">
+                            <i class="fas fa-sync-alt"></i> Try Again
+                        </button>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
